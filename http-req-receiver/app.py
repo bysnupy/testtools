@@ -7,7 +7,7 @@
 """
 
 from flask import Flask
-from flask import request,jsonify
+from flask import request
 app = Flask(__name__)
 
 fail_flag = False
@@ -16,11 +16,14 @@ fail_flag = False
 @app.route('/<path:req_path>')
 def request_main(req_path):
     global fail_flag
+    
+    # Condition blocks for checking a "fail" query string is true or false
     if request.args.get('fail') == 'true':
         fail_flag = True
     elif request.args.get('fail') == 'false':
         fail_flag = False
     
+    # Condition block for response the 500 status code
     if fail_flag:
         raise Exception()
     return 'OK'
