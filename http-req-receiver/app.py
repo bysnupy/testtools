@@ -8,9 +8,14 @@
 
 from flask import Flask
 from flask import request
+import os,time
 app = Flask(__name__)
 
 fail_flag = False
+if os.environ.get('INIT_FAIL') == 'True':
+    fail_flag = True
+
+print("Start time : ", time.strftime('%A %B, %d %Y %H:%M:%S'));
 
 @app.route('/', defaults={'req_path': ''})
 @app.route('/<path:req_path>')
