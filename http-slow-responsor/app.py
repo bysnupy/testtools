@@ -33,7 +33,7 @@ def request_main(req_path):
     if request.args.get('timeout'):
         timeout = int(request.args.get('timeout'))
 
-    session_id = hashlib.md5(str(uuid.uuid4())).hexdigest()
+    session_id = hashlib.md5(str(uuid.uuid4()).encode('utf-8')).hexdigest()
 
     print("%s : %s : configured timeout: %s" % (time.strftime('%Y-%m-%d %H:%M:%S'), session_id, str(timeout)))
     start_time = time.time()
