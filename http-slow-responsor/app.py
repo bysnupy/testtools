@@ -15,8 +15,7 @@
 
 from flask import Flask
 from flask import request
-from md5 import md5
-import os,time,uuid
+import os,time,uuid,hashlib
 app = Flask(__name__)
 
 timeout = 60
@@ -34,7 +33,7 @@ def request_main(req_path):
     if request.args.get('timeout'):
         timeout = int(request.args.get('timeout'))
 
-    session_id = md5(str(uuid.uuid4())).hexdigest()
+    session_id = hashlib.md5(str(uuid.uuid4())).hexdigest()
 
     print("%s : %s : configured timeout: %s" % (time.strftime('%Y-%m-%d %H:%M:%S'), session_id, str(timeout)))
     start_time = time.time()
