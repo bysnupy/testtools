@@ -1,6 +1,6 @@
 """
 * Application name: HTTP Slow responsor
-* Description: This is a simple web server to test any HTTP slow response for timeout influence test
+* Description: This is a simple web server to test timeout influence for slow responses.
 * Logs format: You can identify a certain request using session id
   e.g.> it's one set per one request
                       | session id                       |
@@ -29,7 +29,7 @@ print("Server start time: ", time.strftime('%A %B, %d %Y %H:%M:%S'));
 def request_main(req_path):
     global timeout
 
-    # specify the timeout using 'timeout' query string.
+    # specify the timeout using 'timeout' query string dynamically.
     if request.args.get('timeout'):
         timeout = int(request.args.get('timeout'))
 
