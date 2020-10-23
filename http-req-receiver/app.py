@@ -4,6 +4,8 @@
 * Author: Daein Park
 * Options for query string:
   - change the response code 500 using "fail=true", to revert it using "fail=false"
+  - when server starts, you can change the response code 500 using "INIT_FAIL=True" env
+  - you can change the listening port using "FLASK_RUN_PORT=XXXX" env
 """
 
 from flask import Flask
@@ -14,6 +16,10 @@ app = Flask(__name__)
 fail_flag = False
 if os.environ.get('INIT_FAIL') == 'True':
     fail_flag = True
+
+listening_port = 8080
+if os.environ.get('FLASK_RUN_PORT'):
+    listening_port = int(os.environ.get('FLASK_RUN_PORT'))
 
 print("Start time : ", time.strftime('%A %B, %d %Y %H:%M:%S'));
 
@@ -38,4 +44,4 @@ def failure_error(e):
     return 'You can revert using fail=false query string', 500
 
 if __name__ == '__main__':
-     app.run(host='0.0.0.0', port=8080, debug=True)
+     app.run(host='0.0.0.0', port=listening_port, debug=True)
