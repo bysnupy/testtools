@@ -1,0 +1,6 @@
+#!/bin/bash
+
+while :
+do
+        curl -s http://localhost:8080/server-status?auto &>> /tmp/$(date +%F)_server-status;  sleep 1
+done
