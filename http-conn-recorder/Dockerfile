@@ -1,4 +1,4 @@
-FROM rhel8/httpd-24
+FROM registry.redhat.io/rhel8/httpd-24
 
 USER 0
 
