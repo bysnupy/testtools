@@ -11,6 +11,4 @@ export LD_PRELOAD=libnss_wrapper.so
 export NSS_WRAPPER_PASSWD=${PASSWD_OUTPUT_DIR}/passwd
 export NSS_WRAPPER_GROUP=/etc/group
 
-nohup sh -c /usr/bin/conn-recorder &>> /tmp/$(date +%F)_server-status.log &
-
 exec httpd -D FOREGROUND $@
