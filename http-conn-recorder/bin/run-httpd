@@ -2,19 +2,15 @@
 
 set -eu
 
-source ${HTTPD_CONTAINER_SCRIPTS_PATH}/common.sh
+PASSWD_OUTPUT_DIR="/tmp"
 
-# Check whether we run as s2i
-if ! [ -v HTTPD_RUN_BY_S2I ] && runs_privileged ; then
-  config_privileged
-else
-  # We run as non-root or as s2i
-  config_non_privileged
-  generate_container_user
-fi
+export USER_ID=$(id -u)
+export GROUP_ID=$(id -g)
+envsubst < /tmp/passwd.template > ${PASSWD_OUTPUT_DIR}/passwd
+export LD_PRELOAD=libnss_wrapper.so
+export NSS_WRAPPER_PASSWD=${PASSWD_OUTPUT_DIR}/passwd
+export NSS_WRAPPER_GROUP=/etc/group
 
-process_extending_files ${HTTPD_APP_ROOT}/src/httpd-pre-init/ ${HTTPD_CONTAINER_SCRIPTS_PATH}/pre-init/
-
-nohup sh -c /usr/bin/conn-recorder &
+nohup sh -c /usr/bin/conn-recorder &>> /tmp/$(date +%F)_server-status.log &
 
 exec httpd -D FOREGROUND $@
