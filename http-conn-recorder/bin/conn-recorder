@@ -2,5 +2,5 @@
 
 while :
 do
-        curl -s http://localhost:8080/server-status?auto;  sleep 1
+        curl -s http://localhost:8080/server-status?auto &>> /tmp/$(date +%F)_server-status.log;  sleep 1
 done
