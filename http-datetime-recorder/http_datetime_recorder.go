@@ -25,7 +25,7 @@ func WithLogging(h http.Handler) http.Handler {
 			Status:         200,
 		}
 		h.ServeHTTP(recorder, r)
-		log.Printf("Handling request for %s from %s, status: %d", r.URL.Path, r.RemoteAddr, recorder.Status)
+		log.Printf("Handling requests for %s from %s, status: %d", r.URL.Path, r.RemoteAddr, recorder.Status)
 	})
 }
 
