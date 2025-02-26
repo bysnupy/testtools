@@ -7,17 +7,22 @@
 from flask import Flask
 from flask import request
 from threading import Thread
-import os,time,signal
+import sys,os,time,signal
 app = Flask(__name__)
 
 
 listening_port = 8080
 container_name = "default"
+
 if os.environ.get('FLASK_RUN_PORT'):
     listening_port = int(os.environ.get('FLASK_RUN_PORT'))
 if os.environ.get('CONTAINER_NAME'):
     container_name = str(os.environ.get('CONTAINER_NAME'))
-
+if os.environ.get('EXIT_FAILURE'):
+    sys.exit(1)
+if os.environ.get('EXIT_SUCCESS'):
+    sys.exit(0)
+    
 def sig_print(signum, frame):
     print(time.strftime('%H:%M:%S'), ": RECEIVED a signal : ", signal.Signals(signum).name)
 
