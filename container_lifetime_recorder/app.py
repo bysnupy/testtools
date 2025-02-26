@@ -18,10 +18,6 @@ if os.environ.get('FLASK_RUN_PORT'):
     listening_port = int(os.environ.get('FLASK_RUN_PORT'))
 if os.environ.get('CONTAINER_NAME'):
     container_name = str(os.environ.get('CONTAINER_NAME'))
-if os.environ.get('EXIT_FAILURE'):
-    sys.exit(1)
-if os.environ.get('EXIT_SUCCESS'):
-    sys.exit(0)
     
 def sig_print(signum, frame):
     print(time.strftime('%H:%M:%S'), ": RECEIVED a signal : ", signal.Signals(signum).name)
@@ -34,6 +30,12 @@ for sig in catchable_sigs:
         pass
 
 print(time.strftime('%H:%M:%S'), ": STARTED, Container name: ", container_name);
+if os.environ.get('EXIT_FAILURE'):
+    print(time.strftime('%H:%M:%S'), ": STOPPED with 1 exit code, Container name: ", container_name);
+    sys.exit(1)
+if os.environ.get('EXIT_SUCCESS'):
+    print(time.strftime('%H:%M:%S'), ": STOPPED with 0 exit code, Container name: ", container_name);
+    sys.exit(0)
 
 @app.route('/', defaults={'req_path': ''})
 @app.route('/<path:req_path>')
