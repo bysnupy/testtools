@@ -13,7 +13,7 @@ if os.environ.get('CONTAINER_NAME'):
     container_name = str(os.environ.get('CONTAINER_NAME'))
 
 def sig_print(signum, frame):
-    print(time.strftime('%H:%M:%S'), ": RECEIVED a signal : ", signal.Signals(signum).name)
+    print(time.strftime('%H:%M:%S'), ":", container_name, ": RECEIVED a signal : ", signal.Signals(signum).name)
     sys.exit(0)
 
 catchable_sigs = set(signal.Signals)
