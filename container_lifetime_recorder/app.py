@@ -28,12 +28,12 @@ for sig in catchable_sigs:
     except (ValueError, OSError, RuntimeError) as m:
         pass
 
-print(time.strftime('%H:%M:%S'), ": STARTED, Container name: ", container_name);
+print(time.strftime('%H:%M:%S'), ":", container_name, ": STARTED")
 if os.environ.get('EXIT_FAILURE'):
-    print(time.strftime('%H:%M:%S'), ": STOPPED with 1 exit code, Container name: ", container_name);
+    print(time.strftime('%H:%M:%S'), ": STOPPED with 1 exit code, Container name: ", container_name)
     sys.exit(1)
 if os.environ.get('EXIT_SUCCESS'):
-    print(time.strftime('%H:%M:%S'), ": STOPPED with 0 exit code, Container name: ", container_name);
+    print(time.strftime('%H:%M:%S'), ": STOPPED with 0 exit code, Container name: ", container_name)
     sys.exit(0)
 
 time.sleep(3600)
