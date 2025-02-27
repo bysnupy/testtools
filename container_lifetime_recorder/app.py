@@ -8,12 +8,17 @@ import sys,os,time,signal
 
 
 container_name = "default"
+exit_timeout = 0
 
 if os.environ.get('CONTAINER_NAME'):
     container_name = str(os.environ.get('CONTAINER_NAME'))
+if os.environ.get('EXIT_TIMEOUT'):
+    exit_timeout = int(os.environ.get('EXIT_TIMEOUT')
 
 def sig_print(signum, frame):
     print(time.strftime('%H:%M:%S'), ":", container_name, ": RECEIVED a signal : ", signal.Signals(signum).name)
+    time.sleep(exit_timeout)
+    print(time.strftime('%H:%M:%S'), ":", container_name, ": TERMINATED after", exit_timeout, "seconds since received", signal.Signals(signum).name)
     sys.exit(0)
 
 catchable_sigs = set(signal.Signals)
