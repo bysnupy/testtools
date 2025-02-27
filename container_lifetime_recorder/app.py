@@ -16,9 +16,9 @@ if os.environ.get('EXIT_TIMEOUT'):
     exit_timeout = int(os.environ.get('EXIT_TIMEOUT'))
 
 def sig_print(signum, frame):
-    print(time.strftime('%H:%M:%S'), ":", container_name, ": RECEIVED a signal : ", signal.Signals(signum).name)
+    print(time.strftime('%T.%f')[:-3], ":", container_name, ": RECEIVED a signal : ", signal.Signals(signum).name)
     time.sleep(exit_timeout)
-    print(time.strftime('%H:%M:%S'), ":", container_name, ": TERMINATED after", exit_timeout, "seconds since received", signal.Signals(signum).name)
+    print(time.strftime('%T.%f')[:-3], ":", container_name, ": TERMINATED after", exit_timeout, "seconds since received", signal.Signals(signum).name)
     sys.exit(0)
 
 catchable_sigs = set(signal.Signals)
@@ -28,13 +28,13 @@ for sig in catchable_sigs:
     except (ValueError, OSError, RuntimeError) as m:
         pass
 
-print(time.strftime('%H:%M:%S'), ":", container_name, ": STARTED")
+print(time.strftime('%T.%f')[:-3], ":", container_name, ": STARTED")
 if os.environ.get('EXIT_FAILURE'):
-    print(time.strftime('%H:%M:%S'), ": STOPPED with 1 exit code, Container name: ", container_name)
+    print(time.strftime('%T.%f')[:-3], ":", container_name, ": STOPPED with 1 exit code")
     sys.exit(1)
 if os.environ.get('EXIT_SUCCESS'):
-    print(time.strftime('%H:%M:%S'), ": STOPPED with 0 exit code, Container name: ", container_name)
+    print(time.strftime('%T.%f')[:-3], ":", container_name, ": STOPPED with 0 exit code")
     sys.exit(0)
 
-time.sleep(3600)
+time.sleep(36000)
 sys.exit(0)
