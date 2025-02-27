@@ -4,7 +4,8 @@
 * Author: Daein Park
 """
 
-import sys,os,time,signal,datetime
+import sys,os,time,signal
+from datetime import datetime
 
 container_name = "default"
 exit_timeout = 0
